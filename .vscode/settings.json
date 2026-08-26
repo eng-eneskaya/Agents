@@ -1,0 +1,7 @@
+{
+    "claudeCode.disableLoginPrompt": true,
+    "claudeCode.enableNewConversationShortcut": true,
+    "claudeCode.useCtrlEnterToSend": true,
+    "claudeCode.useTerminal": false,
+    "chat.useClaudeHooks": true
+}

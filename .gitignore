@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Remotion render ciktilari (buyuk binary dosyalar)
+production/motion-graphics/out/
+.remotion/
+
+# macOS
+.DS_Store
+.localized
+
+# Loglar
+*.log
