@@ -78,25 +78,34 @@ my-agents/
 ├── CONVENTIONS.md         ← Isimlendirme ve yapi kurallari
 ├── AGENT_REGISTRY.md      ← Tum agentlarin listesi
 ├── NEW_AGENT_BOOTSTRAP.md ← Yeni agent olusturma rehberi
+├── AGENT_CREATION_CHECKLIST.md ← Agent'i aktif saymadan once dogrulama listesi
+│
+├── .claude/
+│   ├── skills/            ← Canli skill'ler (SKILL.md + YAML frontmatter)
+│   └── commands/          ← Slash komutlar (/heartbeat)
 │
 ├── agents/                ← Her agent kendi klasorunde
-│   └── standard-agent/    ← Sablondan kopyala
-│       ├── AGENT.md       ← Misyon, hedefler, KPI'lar
-│       ├── HEARTBEAT.md   ← Dongu zamanlama ve adimlar
-│       ├── MEMORY.md      ← Agent'in kendi ogrenimleri
-│       ├── RULES.md       ← Sinirlar ve devir kurallari
-│       ├── skills/        ← Her skill ayri dosya
-│       ├── data/imports/  ← Insan'in biraktigi veri
-│       ├── outputs/       ← Agent ciktilari
-│       └── scripts/       ← Otomasyon script'leri
+│   ├── standard-agent/    ← Sablon: yeni agent icin bunu kopyala
+│   │   ├── AGENT.md       ← Misyon, hedefler, KPI'lar
+│   │   ├── HEARTBEAT.md   ← Dongu zamanlama ve adimlar
+│   │   ├── MEMORY.md      ← Agent'in kendi ogrenimleri
+│   │   ├── RULES.md       ← Sinirlar ve devir kurallari
+│   │   ├── EPISODES.md    ← Uretim hattinin durum defteri
+│   │   ├── skills/        ← Pointer stub'lar (.claude/skills'e isaret eder)
+│   │   ├── data/imports/  ← Insan'in biraktigi veri
+│   │   ├── outputs/       ← Agent ciktilari
+│   │   └── scripts/       ← Otomasyon script'leri
+│   └── youtube/           ← Calisan ornek agent (guncel referans)
 │
 ├── knowledge/             ← Statik referans (marka, strateji, hedef kitle)
 ├── journal/               ← Yasayan hafiza (olaylar, kararlar)
 ├── templates/             ← Yeniden kullanilabilir formatlar
 ├── orchestrator/          ← Koordinasyon katmani
 ├── outputs/               ← Tarihli ciktilar
+├── production/            ← Uretim araclari (Remotion motion-graphics projesi)
+├── _claude-install/       ← Skill ve komutlari baska bir kuruluma tasima paketi
 │
-└── examples/              ← Ornek agent (podcast-agent)
+└── examples/              ← Eski ornek agent (podcast-agent)
 ```
 
 ---
@@ -127,10 +136,23 @@ Her Dongu (gunluk/haftalik):
 
 ---
 
-## Ornek Agent: Podcast Agent
+## Ornek Agent
 
-`examples/podcast-agent/` klasorunde tamamlanmis bir ornek var.
-Inceleyerek kendi agentini nasil olusturacagini gorebilirsin.
+`agents/youtube/` guncel ve calisan referans agent — skill'ler, EPISODES.md defteri
+ve gercek ciktilarla birlikte. Yeni bir agent kurarken once buna bak.
+
+`examples/podcast-agent/` daha eski bir ornek; skill/ledger degisikliklerinden once
+yazildi, o yuzden ikincil referans olarak dusun.
+
+### Bir dongu calistirmak
+
+```
+/heartbeat youtube
+```
+
+Komut sinirli bir context okur (EPISODES.md, son 5 journal girdisi, strateji, memory),
+karar agacindan **tek bir** skill secip calistirir, sonucu `outputs/` + `EPISODES.md` +
+`journal/entries/` icine yazar.
 
 ---
 
